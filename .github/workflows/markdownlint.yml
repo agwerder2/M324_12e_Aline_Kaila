@@ -1,0 +1,32 @@
+
+name: Markdown Linting
+
+on:
+  push:
+    paths:
+      - '**.md'
+      - '**/*.md'
+      - '.github/workflows/markdownlint.yml'
+  pull_request:
+    paths:
+      - '**.md'
+      - '**/*.md'
+      - '.github/workflows/markdownlint.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  markdown-lint:
+    name: Check Markdown files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get repository files
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Check Markdown
+        uses: DavidAnson/markdownlint-cli2-action@6b386c54f7609eead9f69955d17f1da9dacd3d5d
+        with:
+          globs: '**/*.md'
